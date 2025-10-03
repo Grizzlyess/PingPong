@@ -32,11 +32,12 @@ except pygame.error:
     print("Aviso: Arquivo de som 'assets/pong.wav' não encontrado.")
 
 win = False
-
+cena = "menu"
 jogando = True
 loop = True
+
 while loop:
-    if jogando:
+    if cena == "jogo":
             # --- PROCESSAMENTO DE EVENTOS ---
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -121,17 +122,31 @@ while loop:
         placar_player2 = fonte.render(str(player2_score), True, "white")
         display.blit(placar_player2, (680, 50))
     
-    else:
+    elif cena == "gameover":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 loop = False
                 
         display.fill((10, 10, 10))
         if win:
-            text_win = fonte.render("VICTORY Player 1 !!", True, (255,255,0))
+            text_win = fonte.render("VICTORY Player 1 !!!", True, (255,255,0))
         else: 
             text_win = fonte.render("VICTORY Player 2 !!!", True, (255,255,0))
         display.blit(text_win, [500,360])
+        
+    elif cena == "menu":
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                loop = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    cena = "jogo"
+                
+        display.fill((10, 10, 10))
+        title = fonte.render("Ping Pong", True, (255,255,0))
+        text = fonte.render("Press star to play.", True, (255,255,0))
+        display.blit(title, [550,310])
+        display.blit(text, [490,410])
         
 
     # --- ATUALIZAÇÃO DA TELA ---
