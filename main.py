@@ -118,12 +118,16 @@ while loop:
         display.blit(placar_player2, (680, 50))
     
     else:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                loop = False
+                
         display.fill((10, 10, 10))
         if win:
             text_win = fonte.render("VICTORY!!!", True, (255,255,0))
         else: 
             text_win = fonte.render("GAME OVER", True, "red")
-        display.blit(text_win, [600,360])
+        display.blit(text_win, [540,360])
         
 
     # --- ATUALIZAÇÃO DA TELA ---
