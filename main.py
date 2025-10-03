@@ -16,6 +16,7 @@ player1_speed = 0
 
 player2 = pygame.Rect(1250, 300, 20, 140)
 player2_score = 0
+player2_speed = 0
 
 ball = pygame.Rect(632, 352, 16, 16)
 ball_speed_x = 4
@@ -47,11 +48,17 @@ while loop:
                     player1_speed = -5  # Velocidade para cima
                 elif event.key == pygame.K_s:
                     player1_speed = 5   # Velocidade para baixo
+                elif event.key == pygame.K_UP:   # Seta para cima
+                    player2_speed = -5 # Velocidade para cima
+                elif event.key == pygame.K_DOWN: # Seta para baixo
+                    player2_speed = 5
                     
             # Quando uma tecla é SOLTA
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_w or event.key == pygame.K_s:
                     player1_speed = 0  # Para o movimento
+                if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                    player2_speed = 0
 
         if player1_score >=3 :
             jogando=False
@@ -91,11 +98,8 @@ while loop:
             if hit_sound:
                 hit_sound.play()
             
-        # IA do Jogador 2
-        if player2.centery < ball.centery:
-            player2.y += 3
-        if player2.centery > ball.centery:
-            player2.y -= 3
+        # Movimento do Jogador 2
+        player2.y += player2_speed
             
         # Colisão do Jogador 2 com as paredes
         if player2.top <= 0:
@@ -124,10 +128,10 @@ while loop:
                 
         display.fill((10, 10, 10))
         if win:
-            text_win = fonte.render("VICTORY!!!", True, (255,255,0))
+            text_win = fonte.render("VICTORY Player 1 !!", True, (255,255,0))
         else: 
-            text_win = fonte.render("GAME OVER", True, "red")
-        display.blit(text_win, [540,360])
+            text_win = fonte.render("VICTORY Player 2 !!!", True, (255,255,0))
+        display.blit(text_win, [500,360])
         
 
     # --- ATUALIZAÇÃO DA TELA ---
