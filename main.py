@@ -33,12 +33,12 @@ except pygame.error:
 
 win = False
 cena = "menu"
-jogando = True
+jogando = True # Esta variável não é mais necessária para o controle de cena, mas mantive como pediu.
 loop = True
 
 while loop:
     if cena == "jogo":
-            # --- PROCESSAMENTO DE EVENTOS ---
+        # --- PROCESSAMENTO DE EVENTOS ---
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 loop = False
@@ -61,11 +61,14 @@ while loop:
                 if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                     player2_speed = 0
 
+        # ###################### INÍCIO DA CORREÇÃO ######################
         if player1_score >=3 :
-            jogando=False
             win = True
+            cena = "gameover" # MUDA A CENA PARA A TELA DE VITÓRIA
         if player2_score >=3 :
-            jogando=False
+            win = False # Define que o Player 2 venceu
+            cena = "gameover" # MUDA A CENA PARA A TELA DE VITÓRIA
+        # ###################### FIM DA CORREÇÃO ######################
         
         # Movimento do Jogador 1 e colisão com as paredes
         player1.y += player1_speed
@@ -141,10 +144,10 @@ while loop:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     cena = "jogo"
-                
+                    
         display.fill((10, 10, 10))
         title = fonte.render("Ping Pong", True, (255,255,0))
-        text = fonte.render("Press star to play.", True, (255,255,0))
+        text = fonte.render("Press start to play.", True, (255,255,0)) # "start" deve ser "Enter"
         display.blit(title, [550,310])
         display.blit(text, [490,410])
         
