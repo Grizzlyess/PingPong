@@ -61,14 +61,13 @@ while loop:
                 if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                     player2_speed = 0
 
-        # ###################### INÍCIO DA CORREÇÃO ######################
         if player1_score >=3 :
             win = True
             cena = "gameover" # MUDA A CENA PARA A TELA DE VITÓRIA
         if player2_score >=3 :
             win = False # Define que o Player 2 venceu
-            cena = "gameover" # MUDA A CENA PARA A TELA DE VITÓRIA
-        # ###################### FIM DA CORREÇÃO ######################
+            cena = "gameover" 
+        
         
         # Movimento do Jogador 1 e colisão com as paredes
         player1.y += player1_speed
@@ -129,6 +128,12 @@ while loop:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 loop = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    cena = "menu"
+                    player1_score=0
+                    player2_score=0
+                    
                 
         display.fill((10, 10, 10))
         if win:
@@ -144,6 +149,10 @@ while loop:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     cena = "jogo"
+                    player1.y = 0
+                    player2.y = 0
+                    ball.x = 632
+                    ball.y = 352
                     
         display.fill((10, 10, 10))
         title = fonte.render("Ping Pong", True, (255,255,0))
